@@ -25,10 +25,10 @@
     
     <section class="result-section">
         
-        <div class="emotion-result {{ emotion|lower }}">
+        <div class="emotion-result">
             <h2 class="quicksand-bold titles">Detected Emotion:</h2>
             {% if emotion %}
-                <div class="quicksand-medium emotion-display">{{ emotion }}</div>
+                <div class="quicksand-medium emotion-display"><span class="{{ emotion|lower }}">{{ emotion }}</span></div>
             {% endif %}
         </div>
     </section>

@@ -157,9 +157,10 @@ textarea {
 }
 
 /* Colores por emoción */
-.emotion-result .joy { color: #FFD166; }  /* Amarillo - Alegría */
-.emotion-result .sadness { color: #6A8EAE; }  /* Azul - Tristeza */
-.emotion-result .anger { color: #EF476F; }  /* Rojo - Enojo */
-.emotion-result .fear { color: #A37A74; }  /* Marrón - Miedo */
-.emotion-result .surprise { color: #06D6A0; }  /* Verde - Sorpresa */
-.emotion-result .neutral { color: #CFDBD5; }  /* Gris - Neutral */
+.joy { color: #FFD166; }  /* Amarillo - Alegría */
+.sadness { color: #6A8EAE; }  /* Azul - Tristeza */
+.anger { color: #EF476F; }  /* Rojo - Enojo */
+.fear { color: #A37A74; }  /* Marrón - Miedo */
+.surprise { color: #06D6A0; }  /* Verde - Sorpresa */
+.neutral { color: #CFDBD5; }  /* Gris - Neutral */
+.love { color: #F8C8DC; }
