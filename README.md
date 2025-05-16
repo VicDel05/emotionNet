@@ -7,24 +7,7 @@ EmotionNet es una aplicación web desarrollada con Django que permite detectar e
 
 Estructura del Proyecto
 ------------------------
-emotionNet/
-├── models/                  -> Modelos entrenados
-│   ├── emotion_model.pkl
-│   └── vectorizer.pkl
-├── src/                     -> Scripts de preprocesamiento y entrenamiento
-│   ├── train.py
-│   └── preprocess.py
-├── web/                     -> Proyecto Django
-│   ├── emotionweb/          -> Configuración principal
-│   └── detector/            -> Aplicación de detección
-│       ├── templates/
-│       │   └── detector/
-│       │       └── index.html
-│       ├── views.py
-│       ├── urls.py
-├── manage.py
-├── requirements.txt
-└── README.txt
+![imagen](./assets/estructura.png)
 
 Requisitos
 ----------
@@ -38,7 +21,7 @@ Instalación
 -----------
 1. Clonar el repositorio:
 ```
-   git clone https://github.com/tuusuario/emotionNet.git
+   git clone https://github.com/VicDel05/emotionNet.git
    cd emotionNet
 ```
 
