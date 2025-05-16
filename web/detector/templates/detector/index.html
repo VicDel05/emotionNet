@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EmotionNet</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="header">
+        <div class="title-header">
+            <h1>EmotionNet</h1>
+            <p>Talk with AI, talk with real friend</p>
+        </div>
+    </header>
+    <main class="grid-container">
+    <section class="input-section">
+        <h1 class="quicksand-bold titles">Emotion Detector</h1>
+        <form method="post">
+            {% csrf_token %}
+            <textarea name="text" rows="5" cols="50" placeholder="Type something...">{{ text }}</textarea><br>
+            <button type="submit" class="btn quicksand-light">Detect Emotion</button>
+        </form>
+    </section>
+    
+    <section class="result-section">
+        
+        <div class="emotion-result {{ emotion|lower }}">
+            <h2 class="quicksand-bold titles">Detected Emotion:</h2>
+            {% if emotion %}
+                <div class="quicksand-medium emotion-display">{{ emotion }}</div>
+            {% endif %}
+        </div>
+    </section>
+</main>
+</body>
+</html>
