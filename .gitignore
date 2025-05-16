@@ -1,0 +1,22 @@
+
+---
+
+### **7. `.gitignore`**
+```text
+# Datos y modelos
+data/full_dataset/
+models/
+*.pkl
+*.h5
+
+# Entornos virtuales
+venv/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Mac
+.DS_Store
+**/.DS_Store
