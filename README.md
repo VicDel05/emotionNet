@@ -34,6 +34,11 @@ Instalación
 3. Instalar dependencias:
 ```
    pip install -r requirements.txt
+
+   pip install  pandas==2.2.3
+   pip install  nltk==3.9.1
+   pip install  scikit-learn==1.6.1
+   pip install  pyyaml==6.0.2
 ```
 
 Entrenar el Modelo (opcional)
