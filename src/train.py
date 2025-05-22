@@ -1,21 +1,48 @@
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report
-import joblib
-from preprocess import load_and_preprocess
+# src/train_lstm.py
 
-X, y = load_and_preprocess(['joy', 'anger', 'sadness', 'fear', 'neutral', 'surprise', 'love'])
+from .preprocess import load_dataset
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Embedding, LSTM, Dense, Dropout
+from tensorflow.keras.callbacks import EarlyStopping
+import numpy as np
+import os
 
-vectorizer = TfidfVectorizer()
-X_vec = vectorizer.fit_transform(X)
-X_train, X_test, y_train, y_test = train_test_split(X_vec, y, test_size=0.2, random_state=42)
+# Configuración
+DATA_PATHS = [
+    "data/full_dataset/goemotions_1.csv",
+    "data/full_dataset/goemotions_2.csv",
+    "data/full_dataset/goemotions_3.csv",
+]
+SELECTED_EMOTIONS = ['joy', 'anger', 'sadness', 'fear', 'neutral', 'surprise', 'love']
+VOCAB_SIZE = 20000
+MAX_LEN = 50
+EMBEDDING_DIM = 128
 
-model = LogisticRegression(max_iter=2000)
-model.fit(X_train, y_train)
+# Cargar y preprocesar datos
+X, y = load_dataset(DATA_PATHS, SELECTED_EMOTIONS, VOCAB_SIZE, MAX_LEN)
+num_classes = len(set(y))
 
-joblib.dump(model, 'models/emotion_model.pkl')
-joblib.dump(vectorizer, 'models/vectorizer.pkl')
+# Definir el modelo LSTM
+model = Sequential([
+    Embedding(VOCAB_SIZE, EMBEDDING_DIM, input_length=MAX_LEN),
+    LSTM(128, return_sequences=True),
+    Dropout(0.3),
+    LSTM(64),
+    Dropout(0.3),
+    Dense(64, activation='relu'),
+    Dense(num_classes, activation='softmax')
+])
 
-y_pred = model.predict(X_test)
-print(classification_report(y_test, y_pred))
+model.compile(
+    loss='sparse_categorical_crossentropy',
+    optimizer='adam',
+    metrics=['accuracy']
+)
+
+# Entrenar el modelo
+early_stop = EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=True)
+model.fit(X, y, epochs=10, validation_split=0.2, batch_size=32, callbacks=[early_stop])
+
+# Guardar el modelo
+os.makedirs("models", exist_ok=True)
+model.save("models/lstm_model.keras")

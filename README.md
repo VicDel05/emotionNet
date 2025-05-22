@@ -11,11 +11,8 @@ Estructura del Proyecto
 
 Requisitos
 ----------
-- Python 3.13.0 o superior
-- Django 5.x
-- scikit-learn
-- pandas
-- joblib
+- Python 3.10.0
+- wget
 
 Instalación
 -----------
@@ -26,31 +23,33 @@ Instalación
 ```
 
 2. Crear entorno virtual:
+MacOS y Linux
 ```
    python -m venv venv
-   source venv/bin/activate    (en Windows: .\venv\Scripts\activate)
+   source venv/bin/activate 
+```
+Windows
+```
+   python -m venv venv
+   .\venv\Scripts\activate
 ```
 
 3. Instalar dependencias:
 ```
    pip install -r requirements.txt
-
-   pip install  pandas==2.2.3
-   pip install  nltk==3.9.1
-   pip install  scikit-learn==1.6.1
-   pip install  pyyaml==6.0.2
 ```
 
-Entrenar el Modelo (opcional)
+Entrenar el Modelo y obtener datos
 -----------------------------
-Los archivos emotion_model.pkl y vectorizer.pkl ya están incluidos, pero si deseas entrenar el modelo nuevamente:
+Los modelos y datos no se encuentran en este repositorio debido a su peso, por lo cual debes seguir las siguientes instrucciones para tener los datos en tu equipo:
 
-1. Desde la carpeta src, ejecutar:
-```
-   python train.py
-```
+1. Entrar al siguiente link del [Drive](https://drive.google.com/drive/folders/1kiOj-X2khVPAnzWWziV50xLcijOXlBEJ?usp=sharing) para descargar los archivos con los datos.
 
-Esto descarga el dataset, filtra emociones específicas, entrena el modelo y guarda los archivos .pkl en la carpeta models/.
+2. Crear una carpeta llamada Data/full_dataset y dentro colocar los archivos descargados.
+
+3. El siguiente paso es ejecutar el comando `python -m src.train` para iniciar con el entrenamiento de la neurona, este proceso puede demorar algo de tiempo.
+
+4. Después de entrenar el modelo ejcutar el comando para realizar las pruebas de predicción `python -m src.predict`, esto activara la interacción por terminal para ingresar oraciones y ver la predicción de la red nuronal.
 
 Ejecutar la Aplicación Web
 --------------------------
@@ -75,10 +74,12 @@ Funcionamiento
 Contenido de requirements.txt
 -----------------------------
 ```
-Django>=5.0
-scikit-learn>=1.3
-pandas
-joblib
+pandas==2.2.3
+scikit-learn==1.6.1
+django==5.2.1
+tensorflow==2.16.2
+numpy==1.26.4
+joblib==1.5.0
 ```
 
 Mejoras Futuras

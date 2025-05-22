@@ -12,6 +12,7 @@ models/
 # Entornos virtuales
 venv/
 .env
+emotion-lstm-env/
 
 # Python
 __pycache__/

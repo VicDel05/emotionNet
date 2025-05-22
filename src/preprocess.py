@@ -1,27 +1,38 @@
+# src/preprocess_lstm.py
+
 import pandas as pd
+import numpy as np
+from sklearn.preprocessing import LabelEncoder
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+import joblib
+import os
 
-def load_and_preprocess(selected_emotions):
-    # Cargar los tres CSVs
-    df1 = pd.read_csv("data/full_dataset/goemotions_1.csv")
-    df2 = pd.read_csv("data/full_dataset/goemotions_2.csv")
-    df3 = pd.read_csv("data/full_dataset/goemotions_3.csv")
+def load_dataset(csv_paths, selected_emotions, num_words=20000, max_len=50):
+    # Combinar todos los CSV en uno solo
+    df = pd.concat([pd.read_csv(path) for path in csv_paths], ignore_index=True)
 
-    df = pd.concat([df1, df2, df3], ignore_index=True)
+    # Filtrar solo una emoción por fila
+    emotion_columns = selected_emotions
+    df['label'] = df[emotion_columns].idxmax(axis=1)
+    df = df[df[emotion_columns].sum(axis=1) == 1]
 
-    # Filtrar solo las columnas necesarias
-    emotion_columns = [col for col in df.columns if col in selected_emotions]
-    df = df[['text'] + emotion_columns]
+    texts = df['text'].astype(str).tolist()
+    labels = df['label'].tolist()
 
-    # Eliminar filas sin ninguna emoción seleccionada
-    df = df[df[emotion_columns].sum(axis=1) > 0]
+    # Tokenización
+    tokenizer = Tokenizer(num_words=num_words, oov_token="<OOV>")
+    tokenizer.fit_on_texts(texts)
+    sequences = tokenizer.texts_to_sequences(texts)
+    padded = pad_sequences(sequences, maxlen=max_len, padding='post')
 
-    # Crear columna 'label' con la primera emoción marcada
-    def get_primary_emotion(row):
-        for emotion in emotion_columns:
-            if row[emotion] == 1:
-                return emotion
-        return None  # fallback
+    # Codificar etiquetas
+    label_encoder = LabelEncoder()
+    y = label_encoder.fit_transform(labels)
 
-    df['label'] = df.apply(get_primary_emotion, axis=1)
+    # Guardar tokenizer y encoder
+    os.makedirs("models", exist_ok=True)
+    joblib.dump(tokenizer, "models/tokenizer.pkl")
+    joblib.dump(label_encoder, "models/label_encoder.pkl")
 
-    return df['text'], df['label']
+    return padded, y
