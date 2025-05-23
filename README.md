@@ -3,7 +3,7 @@ EMOTIONNET - Web App para Detección de Emociones en Texto
 
 Descripción
 -----------
-EmotionNet es una aplicación web desarrollada con Django que permite detectar emociones en frases en inglés utilizando un modelo de Machine Learning. Se entrena con scikit-learn y convierte texto en vectores usando TfidfVectorizer. Las emociones que puede detectar incluyen: joy, anger, sadness, entre otras.
+EmotionNet es una aplicación web desarrollada con Django que permite detectar emociones en frases en inglés utilizando un modelo de Machine Learning. Se emplea un red neuronal recurrente para la predicción de las emociones con ayuda de tenserflow se generean los modelos necesarios. Las emociones que puede detectar incluyen: joy, anger, sadness, entre otras.
 
 Estructura del Proyecto
 ------------------------
@@ -12,7 +12,6 @@ Estructura del Proyecto
 Requisitos
 ----------
 - Python 3.10.0
-- wget
 
 Instalación
 -----------

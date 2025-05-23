@@ -8,6 +8,7 @@ data/full_dataset/
 models/
 *.pkl
 *.h5
+*.keras
 
 # Entornos virtuales
 venv/

@@ -13,6 +13,13 @@
             <p>Talk with AI, talk with real friend</p>
         </div>
     </header>
+    <div>
+        <form method="POST" action="{% url 'predict' %}">
+        {% csrf_token %}
+        <textarea name="text" placeholder="Enter text here..."></textarea>
+        <button type="submit">Detect Emotion</button>
+        </form>
+    </div>
     <main class="grid-container">
     <section class="input-section">
         <h1 class="quicksand-bold titles">Emotion Detector</h1>

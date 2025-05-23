@@ -11,7 +11,7 @@ tokenizer = joblib.load("models/tokenizer.pkl")
 label_encoder = joblib.load("models/label_encoder.pkl")
 
 # Configuración
-MAX_LEN = 50  # Debe coincidir con el entrenamiento
+MAX_LEN = 100  # Debe coincidir con el entrenamiento
 
 def predict_emotion(text):
     # Preprocesamiento
